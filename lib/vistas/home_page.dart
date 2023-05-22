@@ -8,9 +8,14 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('SIREMA'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: const Center(
         child: Text('Bienvenido a SIREMA'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sirema/routes/rutas.dart';
+import 'package:sirema/constantes/rutas.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      routes: routes,
+      routes: rutas, //se injectan las rutas
       initialRoute: '/',
     );
   }
