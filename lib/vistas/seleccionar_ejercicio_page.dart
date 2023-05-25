@@ -29,21 +29,17 @@ class SeleccionarEjercicioPage extends StatelessWidget {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/fondo.png'),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
           ),
-          Image.asset(
-            'assets/encabezado_botones.png',
-            width: 800,
-            height: 200,
-          ),
-          Center(
+          SingleChildScrollView(
+            padding: const EdgeInsets.only(top: 100),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
                       onTap: () {
@@ -51,11 +47,11 @@ class SeleccionarEjercicioPage extends StatelessWidget {
                       },
                       child: Image.asset(
                         'assets/boton_suma.png',
-                        width: 600,
+                        scale: 4,
                       ),
                     ),
                     const SizedBox(
-                      width: 20,
+                      height: 20,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -71,8 +67,8 @@ class SeleccionarEjercicioPage extends StatelessWidget {
                         );
                       },
                       child: Container(
-                        width: 200,
-                        height: 225,
+                        width: 110,
+                        height: 110,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: const Color(0xffB22600),
@@ -91,20 +87,20 @@ class SeleccionarEjercicioPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 20,
                 ),
-                Row(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
                       onTap: () {},
                       child: Image.asset(
                         'assets/boton_resta.png',
-                        width: 600,
+                        scale: 4,
                       ),
                     ),
                     const SizedBox(
-                      width: 20,
+                      height: 20,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -120,8 +116,8 @@ class SeleccionarEjercicioPage extends StatelessWidget {
                         );
                       },
                       child: Container(
-                        width: 200,
-                        height: 225,
+                        width: 110,
+                        height: 110,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: const Color(0xffB22600),
@@ -141,6 +137,10 @@ class SeleccionarEjercicioPage extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          Image.asset(
+            'assets/encabezado_botones.png',
+            scale: 2,
           ),
         ],
       ),

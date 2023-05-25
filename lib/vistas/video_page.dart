@@ -49,80 +49,98 @@ class _VideoPageState extends State<VideoPage> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/fondo.png'),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
           ),
-          Image.asset(
-            'assets/encabezado_suma.png',
-            width: 800,
-            height: 200,
-          ),
-          Center(
-            child: SizedBox(
-              width: 1200,
-              height: 1200,
-              child: _controller.value.isInitialized
-                  ? AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    )
-                  : Container(),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/encabezado_suma.png',
+                  scale: 2,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    setState(() {
+                      _controller.value.isPlaying
+                          ? _controller.pause()
+                          : _controller.play();
+                    });
+                  },
+                  child: IgnorePointer(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      child: _controller.value.isInitialized
+                          ? AspectRatio(
+                              aspectRatio: _controller.value.aspectRatio,
+                              child: VideoPlayer(_controller),
+                            )
+                          : Container(),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
       ),
-      floatingActionButton: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 100,
-            height: 100,
-            child: FloatingActionButton(
-              backgroundColor: Colors.pink,
-              heroTag: null,
-              onPressed: () {
-                setState(() {
-                  _controller.value.volume == 0
-                      ? _controller.setVolume(1)
-                      : _controller.setVolume(0);
-                });
-              },
-              child: Icon(
-                _controller.value.volume == 0
-                    ? Icons.volume_off
-                    : Icons.volume_up,
-                size: 40,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          SizedBox(
-            width: 100,
-            height: 100,
-            child: FloatingActionButton(
-              backgroundColor: Colors.pink,
-              heroTag: null,
-              onPressed: () {
-                setState(() {
-                  _controller.value.isPlaying
-                      ? _controller.pause()
-                      : _controller.play();
-                });
-              },
-              child: Icon(
-                _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                size: 40,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-      ),
+      // floatingActionButton: Row(
+      //   mainAxisSize: MainAxisSize.max,
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     SizedBox(
+      //       width: 100,
+      //       height: 100,
+      //       child: FloatingActionButton(
+      //         backgroundColor: Colors.pink,
+      //         heroTag: null,
+      //         onPressed: () {
+      //           setState(() {
+      //             _controller.value.volume == 0
+      //                 ? _controller.setVolume(1)
+      //                 : _controller.setVolume(0);
+      //           });
+      //         },
+      //         child: Icon(
+      //           _controller.value.volume == 0
+      //               ? Icons.volume_off
+      //               : Icons.volume_up,
+      //           size: 40,
+      //           color: Colors.white,
+      //         ),
+      //       ),
+      //     ),
+      //     const SizedBox(
+      //       width: 20,
+      //     ),
+      //     SizedBox(
+      //       width: 100,
+      //       height: 100,
+      //       child: FloatingActionButton(
+      //         backgroundColor: Colors.pink,
+      //         heroTag: null,
+      //         onPressed: () {
+      //           setState(() {
+      //             _controller.value.isPlaying
+      //                 ? _controller.pause()
+      //                 : _controller.play();
+      //           });
+      //         },
+      //         child: Icon(
+      //           _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+      //           size: 40,
+      //           color: Colors.white,
+      //         ),
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

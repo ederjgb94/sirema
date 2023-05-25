@@ -1,11 +1,18 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:sirema/utilerias/pair.dart';
 
-class EjerciciosSumasPage extends StatelessWidget {
-  EjerciciosSumasPage({super.key});
+class EjerciciosSumasPage extends StatefulWidget {
+  const EjerciciosSumasPage({super.key});
 
+  @override
+  State<EjerciciosSumasPage> createState() => _EjerciciosSumasPageState();
+}
+
+class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
   final Random random = Random();
+
   final List<String> imagenes = [
     'arbol',
     'buho',
@@ -17,80 +24,167 @@ class EjerciciosSumasPage extends StatelessWidget {
     'manzana',
     'platano',
     'sandia',
+    'zanahoria',
     'zanahoria'
   ];
 
-  final List ejercicios = [];
+  final List<TextEditingController> respuestas =
+      List.generate(10, (index) => TextEditingController());
 
-  void iniciarEjercicios() {
-    ejercicios.add([random.nextInt(10) + 1, random.nextInt(10) + 1]);
-    ejercicios.add([random.nextInt(10) + 1, random.nextInt(10) + 1]);
+  List<Pair> ejercicios = [];
+
+  @override
+  void initState() {
+    ejercicios = List.generate(
+      10,
+      (index) => Pair(
+        (random.nextInt(imagenes.length)) + 1,
+        (random.nextInt(imagenes.length)) + 1,
+      ),
+    );
+    super.initState();
   }
 
-  Widget generarSuma() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          width: 400,
-          // color: Colors.red,
-          child: Wrap(
-            children: List.generate(
-              imagenes.length,
-              (index) => Image.asset(
-                'assets/${imagenes[index]}.png',
-                width: 60,
-                height: 60,
+  Widget generarSuma(
+    context,
+    index,
+  ) {
+    int a = ejercicios[index].first;
+    int b = ejercicios[index].second;
+    return Container(
+      // color: Colors.red,
+      padding: const EdgeInsets.only(
+        bottom: 50,
+      ),
+      constraints: const BoxConstraints(
+        maxWidth: 1000,
+      ),
+      child: Wrap(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.teal,
+                width: 2,
+              ),
+            ),
+            width: 300,
+            child: Wrap(
+              children: List.generate(
+                (a + 1),
+                (index) {
+                  var random = Random();
+                  var aux = random.nextInt(imagenes.length);
+
+                  return index == 0
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            a.toString(),
+                            style: const TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                      : Image.asset(
+                          'assets/${imagenes[aux]}.png',
+                          width: 60,
+                          height: 60,
+                        );
+                },
               ),
             ),
           ),
-        ),
-        Image.asset('assets/sumaicono.png', width: 80, height: 80),
-        const SizedBox(
-          width: 30,
-        ),
-        SizedBox(
-          width: 400,
-          // color: Colors.red,
-          child: Wrap(
-            children: List.generate(
-              imagenes.length,
-              (index) => Image.asset(
-                'assets/${imagenes[index]}.png',
-                width: 60,
-                height: 60,
+          const SizedBox(
+            width: 15,
+          ),
+          Image.asset('assets/sumaicono.png', width: 80, height: 80),
+          const SizedBox(
+            width: 15,
+          ),
+          Container(
+            width: 300,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.teal,
+                width: 2,
+              ),
+            ),
+            child: Wrap(
+              children: List.generate(
+                (b + 1),
+                (index) {
+                  var random = Random();
+                  var aux = random.nextInt(imagenes.length);
+                  return index == 0
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            b.toString(),
+                            style: const TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                      : Image.asset(
+                          'assets/${imagenes[aux]}.png',
+                          width: 60,
+                          height: 60,
+                        );
+                },
               ),
             ),
           ),
-        ),
-        Image.asset('assets/igualicono.png', width: 80, height: 80),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
+          const SizedBox(
+            width: 5,
           ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Image.asset('assets/nube.png', width: 120, height: 120),
-              const Text(
-                '24',
-                style: TextStyle(
-                  fontSize: 60,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 255, 167, 99),
+          Image.asset('assets/igualicono.png', width: 80, height: 80),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              children: [
+                Image.asset('assets/nube.png', width: 120, height: 120),
+                const SizedBox(
+                  width: 50,
+                  child: TextField(
+                    maxLength: 2,
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 255, 167, 99),
+                    ),
+                    decoration: InputDecoration(
+                      counterText: '',
+                      border: InputBorder.none,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                // Positioned(
+                //   right: -20,
+                //   bottom: 5,
+                //   child:
+                //       Image.asset('assets/palomita.png', width: 60, height: 60),
+                // ),
+              ],
+            ),
           ),
-        ),
-        Image.asset('assets/palomita.png', width: 60, height: 60),
-      ],
+          // Image.asset('assets/palomita.png', width: 60, height: 60),
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    iniciarEjercicios();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -113,7 +207,7 @@ class EjerciciosSumasPage extends StatelessWidget {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/fondo.png'),
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
           ),
@@ -141,35 +235,21 @@ class EjerciciosSumasPage extends StatelessWidget {
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
-                    'OBSERVA Y CONTESTA CORRECTAMENTE LAS SIGUIENTES SUMAS:',
+                    'OBSERVA Y CONTESTA CORRECTAMENTE\nLAS SIGUIENTES SUMAS:',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
                     ),
                   ),
                 ),
                 const SizedBox(
                   height: 40,
                 ),
-                generarSuma(),
-                const SizedBox(
-                  height: 80,
-                ),
-                generarSuma(),
-                const SizedBox(
-                  height: 80,
-                ),
-                generarSuma(),
-                const SizedBox(
-                  height: 80,
-                ),
-                generarSuma(),
-                const SizedBox(
-                  height: 80,
-                ),
-                generarSuma(),
-                const SizedBox(
-                  height: 80,
+                Column(
+                  children: List.generate(
+                    10,
+                    (index) => generarSuma(context, index),
+                  ),
                 ),
               ],
             ),
