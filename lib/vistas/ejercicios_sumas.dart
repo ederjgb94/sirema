@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:sirema/utilerias/pair.dart';
+import 'package:text_to_speech/text_to_speech.dart';
 
 class EjerciciosSumasPage extends StatefulWidget {
   const EjerciciosSumasPage({super.key});
@@ -25,7 +26,6 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
     'platano',
     'sandia',
     'zanahoria',
-    'zanahoria'
   ];
 
   final List<TextEditingController> respuestas =
@@ -33,16 +33,42 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
 
   List<Pair> ejercicios = [];
 
+  List<String> oraciones = [];
+
+  List<List<int>> imgG1 = [];
+  List<List<int>> imgG2 = [];
+
+  bool verificar = false;
+
   @override
   void initState() {
-    ejercicios = List.generate(
-      10,
-      (index) => Pair(
-        (random.nextInt(imagenes.length)) + 1,
-        (random.nextInt(imagenes.length)) + 1,
-      ),
-    );
+    ejercicios = List.generate(10, (index) {
+      int x = (random.nextInt(imagenes.length)) + 1;
+      int y = (random.nextInt(imagenes.length)) + 1;
+
+      imgG1.add(List.generate(x, (index) => random.nextInt(imagenes.length)));
+      imgG2.add(List.generate(y, (index) => random.nextInt(imagenes.length)));
+
+      oraciones.add(generarOracion(x, y));
+      return Pair(
+        x,
+        y,
+      );
+    });
     super.initState();
+  }
+
+  String generarOracion(int a, int b) {
+    int x = random.nextInt(3);
+    switch (x) {
+      case 0:
+        return "Si tengo $a figuritas y mi mama me compra $b figuritas, ¿Cuántas figuritas tengo en total?";
+      case 1:
+        return "Mi papa me $a pegatinas y mi mama me $b pegatinas, ¿Cuántas pegatinas tengo en total?";
+      case 2:
+        return "Mi amigo Pepe tiene $a estampas y mi amigo Juan tiene $b estampas, ¿Si juntamos las estampas cuántas serían en total?";
+    }
+    return "";
   }
 
   Widget generarSuma(
@@ -57,7 +83,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
         bottom: 50,
       ),
       constraints: const BoxConstraints(
-        maxWidth: 1000,
+        maxWidth: 1200,
       ),
       child: Wrap(
         children: [
@@ -73,11 +99,8 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
             child: Wrap(
               children: List.generate(
                 (a + 1),
-                (index) {
-                  var random = Random();
-                  var aux = random.nextInt(imagenes.length);
-
-                  return index == 0
+                (subindex) {
+                  return subindex == 0
                       ? Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
@@ -89,7 +112,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                           ),
                         )
                       : Image.asset(
-                          'assets/${imagenes[aux]}.png',
+                          'assets/${imagenes[imgG1[index][subindex - 1]]}.png',
                           width: 60,
                           height: 60,
                         );
@@ -116,10 +139,8 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
             child: Wrap(
               children: List.generate(
                 (b + 1),
-                (index) {
-                  var random = Random();
-                  var aux = random.nextInt(imagenes.length);
-                  return index == 0
+                (subindex) {
+                  return subindex == 0
                       ? Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
@@ -131,7 +152,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                           ),
                         )
                       : Image.asset(
-                          'assets/${imagenes[aux]}.png',
+                          'assets/${imagenes[imgG2[index][subindex - 1]]}.png',
                           width: 60,
                           height: 60,
                         );
@@ -143,7 +164,6 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
             width: 5,
           ),
           Image.asset('assets/igualicono.png', width: 80, height: 80),
-
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
@@ -153,31 +173,53 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
               alignment: Alignment.center,
               children: [
                 Image.asset('assets/nube.png', width: 120, height: 120),
-                const SizedBox(
+                SizedBox(
                   width: 50,
                   child: TextField(
+                    controller: respuestas[index],
                     maxLength: 2,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                       color: Color.fromARGB(255, 255, 167, 99),
                     ),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       counterText: '',
                       border: InputBorder.none,
                     ),
                   ),
                 ),
-                // Positioned(
-                //   right: -20,
-                //   bottom: 5,
-                //   child:
-                //       Image.asset('assets/palomita.png', width: 60, height: 60),
-                // ),
+                verificar == false
+                    ? const SizedBox()
+                    : (respuestas[index].text != (a + b).toString()
+                        ? Positioned(
+                            right: -20,
+                            bottom: 5,
+                            child: Image.asset('assets/tacha.png',
+                                width: 60, height: 60),
+                          )
+                        : Positioned(
+                            right: -20,
+                            bottom: 5,
+                            child: Image.asset('assets/palomita.png',
+                                width: 60, height: 60),
+                          )),
               ],
             ),
           ),
-          // Image.asset('assets/palomita.png', width: 60, height: 60),
+          GestureDetector(
+            onTap: () {
+              TextToSpeech tts = TextToSpeech();
+              tts.setLanguage("es-MX");
+              // String text =
+              //     "Si tengo $a figuritas y mi mama me compra $b figuritas, ¿Cuántas figuritas tengo en total?";
+              tts.speak(oraciones[index]);
+            },
+            child: Image.asset(
+              'assets/escuchar_audio.png',
+              scale: 2,
+            ),
+          ),
         ],
       ),
     );
@@ -256,9 +298,16 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          setState(() {
+            verificar = true;
+          });
+        },
+        child: Image.asset(
+          'assets/verificar.png',
+          scale: 1.5,
+        ),
       ),
     );
   }

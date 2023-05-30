@@ -14,7 +14,6 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = VideoPlayerController.asset('assets/${widget.url}')
       ..initialize().then((_) {

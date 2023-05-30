@@ -4,5 +4,5 @@ import 'package:sirema/vistas/seleccionar_ejercicio_page.dart';
 
 Map<String, WidgetBuilder> rutas = {
   '/': (context) => const SeleccionarEjercicioPage(),
-  '/ejercicios_sumas': (context) => EjerciciosSumasPage(),
+  '/ejercicios_sumas': (context) => const EjerciciosSumasPage(),
 };
