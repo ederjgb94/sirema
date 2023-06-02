@@ -8,17 +8,9 @@ class SeleccionarEjercicioPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'SIREMA',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w300,
-            letterSpacing: 10,
-          ),
-        ),
-        centerTitle: true,
-        toolbarHeight: 80,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: const Color.fromARGB(255, 236, 230, 254),
+        title: Image.asset('assets/sirema.png', scale: 4),
+        toolbarHeight: 100,
       ),
       body: Stack(
         alignment: Alignment.topCenter,
@@ -34,113 +26,107 @@ class SeleccionarEjercicioPage extends StatelessWidget {
             ),
           ),
           SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 100),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 30,
+              runSpacing: 30,
               children: [
-                Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/ejercicios_sumas');
-                      },
-                      child: Image.asset(
-                        'assets/boton_suma.png',
-                        scale: 4,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return const VideoPage(
-                                url: 'suma.mp4',
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: 110,
-                        height: 110,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: const Color(0xffB22600),
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.circular(
-                            30,
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.video_camera_back,
-                          size: 100,
-                        ),
-                      ),
-                    ),
-                  ],
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  color: Colors.white,
+                  child: Image.asset(
+                    'assets/ejercicios_refuerzo.png',
+                    scale: 1.8,
+                  ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  width: double.infinity,
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Image.asset(
-                        'assets/boton_resta.png',
-                        scale: 4,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/ejercicios_sumas');
+                  },
+                  child: Image.asset(
+                    'assets/boton_suma.png',
+                    scale: 4,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const VideoPage(
+                            url: 'suma.mp4',
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 110,
+                    height: 110,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: const Color(0xffB22600),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        30,
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    child: const Icon(
+                      Icons.video_camera_back,
+                      size: 100,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return const VideoPage(
-                                url: 'restas.mp4',
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: 110,
-                        height: 110,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: const Color(0xffB22600),
-                            width: 2,
-                          ),
-                          borderRadius: BorderRadius.circular(
-                            30,
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.video_camera_back,
-                          size: 100,
-                        ),
+                  ),
+                ),
+                const SizedBox(
+                  width: double.infinity,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/ejercicios_restas');
+                  },
+                  child: Image.asset(
+                    'assets/boton_resta.png',
+                    scale: 4,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const VideoPage(
+                            url: 'restas.mp4',
+                          );
+                        },
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 110,
+                    height: 110,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: const Color(0xffB22600),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        30,
                       ),
                     ),
-                  ],
-                ),
+                    child: const Icon(
+                      Icons.video_camera_back,
+                      size: 100,
+                    ),
+                  ),
+                )
               ],
             ),
-          ),
-          Image.asset(
-            'assets/encabezado_botones.png',
-            scale: 2,
           ),
         ],
       ),

@@ -27,17 +27,9 @@ class _VideoPageState extends State<VideoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'SIREMA',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w300,
-            letterSpacing: 10,
-          ),
-        ),
-        centerTitle: true,
-        toolbarHeight: 80,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: const Color.fromARGB(255, 230, 254, 249),
+        title: Image.asset('assets/sirema.png', scale: 4),
+        toolbarHeight: 100,
       ),
       body: Stack(
         alignment: Alignment.topCenter,

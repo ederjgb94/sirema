@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:sirema/utilerias/pair.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 
-class EjerciciosSumasPage extends StatefulWidget {
-  const EjerciciosSumasPage({super.key});
+class EjerciciosRestasPage extends StatefulWidget {
+  const EjerciciosRestasPage({super.key});
 
   @override
-  State<EjerciciosSumasPage> createState() => _EjerciciosSumasPageState();
+  State<EjerciciosRestasPage> createState() => _EjerciciosRestasPageState();
 }
 
-class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
+class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
   final Random random = Random();
 
   final List<String> imagenes = [
@@ -45,9 +45,17 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
     ejercicios = List.generate(10, (index) {
       int x = (random.nextInt(imagenes.length)) + 1;
       int y = (random.nextInt(imagenes.length)) + 1;
-
-      imgG1.add(List.generate(x, (index) => random.nextInt(imagenes.length)));
-      imgG2.add(List.generate(y, (index) => random.nextInt(imagenes.length)));
+      if (x < y) {
+        int aux = x;
+        x = y;
+        y = aux;
+      }
+      var figuras =
+          List.generate(x, (index) => random.nextInt(imagenes.length));
+      imgG1.add(figuras);
+      var figuras2 = figuras.sublist(0, y);
+      figuras2.shuffle();
+      imgG2.add(figuras2);
 
       oraciones.add(generarOracion(x, y));
       return Pair(
@@ -59,19 +67,15 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
   }
 
   String generarOracion(int a, int b) {
-    int x = random.nextInt(3);
+    int x = random.nextInt(1);
     switch (x) {
       case 0:
-        return "Si tengo $a figuritas y mi mama me compra $b figuritas, ¿Cuántas figuritas tengo en total?";
-      case 1:
-        return "Mi papa me dió $a pegatinas y mi mama me dió $b pegatinas, ¿Cuántas pegatinas tengo en total?";
-      case 2:
-        return "Mi amigo Pepe tiene $a estampas y mi amigo Juan tiene $b estampas, ¿Si juntamos las estampas cuántas serían en total?";
+        return "Si tengo $a figuritas y mi mama me quita $b figuritas, ¿Cuántas figuritas tengo en total?";
     }
     return "";
   }
 
-  Widget generarSuma(
+  Widget generarResta(
     context,
     index,
   ) {
@@ -123,7 +127,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
           const SizedBox(
             width: 15,
           ),
-          Image.asset('assets/sumaicono.png', width: 80, height: 80),
+          Image.asset('assets/restaicono.png', width: 80, height: 80),
           const SizedBox(
             width: 15,
           ),
@@ -172,7 +176,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
               clipBehavior: Clip.none,
               alignment: Alignment.center,
               children: [
-                Image.asset('assets/nube.png', width: 120, height: 120),
+                Image.asset('assets/estrella.png', width: 120, height: 120),
                 SizedBox(
                   width: 50,
                   child: TextField(
@@ -181,7 +185,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                     style: const TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 167, 99),
+                      color: Color.fromARGB(255, 23, 11, 255),
                     ),
                     decoration: const InputDecoration(
                       counterText: '',
@@ -191,7 +195,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                 ),
                 verificar == false
                     ? const SizedBox()
-                    : (respuestas[index].text != (a + b).toString()
+                    : (respuestas[index].text != (a - b).toString()
                         ? Positioned(
                             right: -20,
                             bottom: 5,
@@ -212,8 +216,6 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
               TextToSpeech tts = TextToSpeech();
               await tts.setLanguage("es-MX");
               await tts.setRate(0.9);
-              // String text =
-              //     "Si tengo $a figuritas y mi mama me compra $b figuritas, ¿Cuántas figuritas tengo en total?";
               tts.speak(oraciones[index]);
             },
             child: Image.asset(
@@ -230,7 +232,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 254, 230, 230),
+        backgroundColor: const Color.fromARGB(255, 254, 246, 230),
         title: Image.asset('assets/sirema.png', scale: 4),
         toolbarHeight: 100,
       ),
@@ -248,14 +250,13 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
           ),
           SingleChildScrollView(
             child: Wrap(
-              // mainAxisAlignment: MainAxisAlignment.start,
               alignment: WrapAlignment.center,
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   color: Colors.white,
                   child: Image.asset(
-                    'assets/ejerciciosSuma.png',
+                    'assets/ejerciciosResta.png',
                     scale: 1.8,
                   ),
                 ),
@@ -265,7 +266,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
-                    'OBSERVA Y CONTESTA CORRECTAMENTE LAS SIGUIENTES SUMAS:',
+                    'OBSERVA Y CONTESTA CORRECTAMENTE LAS SIGUIENTES RESTAS:',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,
@@ -279,7 +280,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                 Column(
                   children: List.generate(
                     10,
-                    (index) => generarSuma(context, index),
+                    (index) => generarResta(context, index),
                   ),
                 ),
               ],
