@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:sirema/utilerias/pair.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 
-class EjerciciosSumasPage extends StatefulWidget {
-  const EjerciciosSumasPage({super.key});
+class EjerciciosRestasPage extends StatefulWidget {
+  const EjerciciosRestasPage({super.key});
 
   @override
-  State<EjerciciosSumasPage> createState() => _EjerciciosSumasPageState();
+  State<EjerciciosRestasPage> createState() => _EjerciciosRestasPageState();
 }
 
-class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
+class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
   final Random random = Random();
 
   final List<String> imagenes = [
@@ -49,8 +49,6 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
 
   List<Pair> ejercicios = [];
 
-  List<bool> respuestasCorrectas = [];
-
   List<String> oraciones = [];
 
   List<List<int>> imgG1 = [];
@@ -60,13 +58,20 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
 
   @override
   void initState() {
-    respuestasCorrectas = List.generate(10, (index) => false);
     ejercicios = List.generate(10, (index) {
       int x = (random.nextInt(12)) + 1;
       int y = (random.nextInt(12)) + 1;
-
-      imgG1.add(List.generate(x, (index) => random.nextInt(imagenes.length)));
-      imgG2.add(List.generate(y, (index) => random.nextInt(imagenes.length)));
+      if (x < y) {
+        int aux = x;
+        x = y;
+        y = aux;
+      }
+      var figuras =
+          List.generate(x, (index) => random.nextInt(imagenes.length));
+      imgG1.add(figuras);
+      var figuras2 = figuras.sublist(0, y);
+      figuras2.shuffle();
+      imgG2.add(figuras2);
 
       oraciones.add(generarOracion(x, y));
       return Pair(
@@ -78,21 +83,17 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
   }
 
   String generarOracion(int a, int b) {
-    int x = random.nextInt(3);
+    int x = random.nextInt(1);
     var s1 = a == 1 ? "" : "s";
     var s2 = b == 1 ? "" : "s";
     switch (x) {
       case 0:
-        return "Si tengo $a figurita$s1 y mi mamá me compra $b figurita$s2, ¿Cuántas figuritas tengo en total?";
-      case 1:
-        return "Mi papá me dió $a pegatina$s1 y mi mamá me dió $b pegatina$s2, ¿Cuántas pegatinas tengo en total?";
-      case 2:
-        return "Mi amigo Pepe tiene $a estampa$s1 y mi amigo Juan tiene $b estampa$s2, ¿Si juntamos las estampas cuántas serían en total?";
+        return "Si tengo $a figurita$s1 y mi mamá me quita $b figurita$s2, ¿Cuántas figuritas tengo en total?";
     }
     return "";
   }
 
-  Widget generarSuma(
+  Widget generarResta(
     context,
     index,
   ) {
@@ -144,7 +145,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
           const SizedBox(
             width: 15,
           ),
-          Image.asset('assets/sumaicono.png', width: 80, height: 80),
+          Image.asset('assets/restaicono.png', width: 80, height: 80),
           const SizedBox(
             width: 15,
           ),
@@ -193,26 +194,16 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
               clipBehavior: Clip.none,
               alignment: Alignment.center,
               children: [
-                Image.asset('assets/nube.png', width: 120, height: 120),
-                Container(
-                  decoration: verificar && respuestasCorrectas[index] == false
-                      ? BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.red,
-                            width: 2,
-                          ),
-                        )
-                      : const BoxDecoration(),
+                Image.asset('assets/estrella.png', width: 120, height: 120),
+                SizedBox(
                   width: 50,
                   child: TextField(
                     controller: respuestas[index],
                     maxLength: 2,
-                    readOnly: verificar,
                     style: const TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 167, 99),
+                      color: Color.fromARGB(255, 23, 11, 255),
                     ),
                     decoration: const InputDecoration(
                       counterText: '',
@@ -222,7 +213,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                 ),
                 verificar == false
                     ? const SizedBox()
-                    : respuestasCorrectas[index] == false
+                    : (respuestas[index].text != (a - b).toString()
                         ? Positioned(
                             right: -20,
                             bottom: 5,
@@ -234,25 +225,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                             bottom: 5,
                             child: Image.asset('assets/palomita.png',
                                 width: 60, height: 60),
-                          ),
-                verificar && respuestasCorrectas[index] == false
-                    ? Positioned(
-                        bottom: 5,
-                        right: -70,
-                        child: Container(
-                          color: Colors.white,
-                          child: Text(
-                            (ejercicios[index].first + ejercicios[index].second)
-                                .toString(),
-                            style: const TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
-                      )
-                    : const SizedBox(),
+                          )),
               ],
             ),
           ),
@@ -261,8 +234,6 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
               TextToSpeech tts = TextToSpeech();
               await tts.setLanguage("es-MX");
               await tts.setRate(0.9);
-              // String text =
-              //     "Si tengo $a figuritas y mi mama me compra $b figuritas, ¿Cuántas figuritas tengo en total?";
               tts.speak(oraciones[index]);
             },
             child: Image.asset(
@@ -279,10 +250,10 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 254, 230, 230),
+        backgroundColor: const Color.fromARGB(255, 254, 246, 230),
         title: Image.asset('assets/sirema.png', scale: 4),
-        centerTitle: true,
         toolbarHeight: 100,
+        centerTitle: true,
       ),
       body: Stack(
         children: [
@@ -299,14 +270,13 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
           SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 60),
             child: Wrap(
-              // mainAxisAlignment: MainAxisAlignment.start,
               alignment: WrapAlignment.center,
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   color: Colors.white,
                   child: Image.asset(
-                    'assets/ejerciciosSuma.png',
+                    'assets/ejerciciosResta.png',
                     scale: 1.8,
                   ),
                 ),
@@ -316,7 +286,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
-                    'OBSERVA Y CONTESTA CORRECTAMENTE LAS SIGUIENTES SUMAS:',
+                    'OBSERVA Y CONTESTA CORRECTAMENTE LAS SIGUIENTES RESTAS:',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,
@@ -330,7 +300,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                 Column(
                   children: List.generate(
                     10,
-                    (index) => generarSuma(context, index),
+                    (index) => generarResta(context, index),
                   ),
                 ),
               ],
@@ -338,99 +308,17 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
           ),
         ],
       ),
-      floatingActionButton: verificar == false
-          ? GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text(
-                      '¿ACABASTE?',
-                      style: TextStyle(
-                        fontSize: 40,
-                      ),
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          'NO',
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            verificar = true;
-                          });
-                          Navigator.pop(context);
-
-                          int total = ejercicios.length;
-                          int correctas = 0;
-                          for (int i = 0; i < ejercicios.length; i++) {
-                            var ejercicio = ejercicios[i];
-                            int a = ejercicio.first;
-                            int b = ejercicio.second;
-                            int res = respuestas[i].text == ''
-                                ? 0
-                                : int.parse(respuestas[i].text);
-
-                            if (a + b == res) {
-                              correctas++;
-                              respuestasCorrectas[i] = true;
-                            }
-                          }
-                          int incorrectas = total - correctas;
-                        },
-                        child: const Text(
-                          'SI',
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              child: Image.asset(
-                'assets/verificar.png',
-                scale: 1.5,
-              ),
-            )
-          : FutureBuilder(
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/seleccionar_ejercicios');
-                    },
-                    child: Image.asset(
-                      'assets/finalizar.png',
-                      scale: 2.5,
-                    ),
-                  );
-                } else {
-                  return Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/boton_vacio.png',
-                        scale: 3,
-                      ),
-                      const CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
-                    ],
-                  );
-                }
-              },
-              future: Future.delayed(const Duration(seconds: 2)),
-            ),
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          setState(() {
+            verificar = true;
+          });
+        },
+        child: Image.asset(
+          'assets/verificar.png',
+          scale: 1.5,
+        ),
+      ),
     );
   }
 }

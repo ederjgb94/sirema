@@ -24,20 +24,20 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   @override
+  void dispose() {
+    // Ensure disposing of the VideoPlayerController to free up resources.
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'SIREMA',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w300,
-            letterSpacing: 10,
-          ),
-        ),
+        backgroundColor: const Color.fromARGB(255, 230, 254, 249),
+        title: Image.asset('assets/sirema.png', scale: 4),
+        toolbarHeight: 100,
         centerTitle: true,
-        toolbarHeight: 80,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Stack(
         alignment: Alignment.topCenter,
@@ -53,12 +53,18 @@ class _VideoPageState extends State<VideoPage> {
             ),
           ),
           SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 60),
             child: Column(
               children: [
-                Image.asset(
-                  'assets/encabezado_suma.png',
-                  scale: 2,
-                ),
+                widget.url == 'restas.mp4'
+                    ? Image.asset(
+                        'assets/encabezado_resta.png',
+                        scale: 2,
+                      )
+                    : Image.asset(
+                        'assets/encabezado_suma.png',
+                        scale: 2,
+                      ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -89,57 +95,6 @@ class _VideoPageState extends State<VideoPage> {
           ),
         ],
       ),
-      // floatingActionButton: Row(
-      //   mainAxisSize: MainAxisSize.max,
-      //   mainAxisAlignment: MainAxisAlignment.center,
-      //   children: [
-      //     SizedBox(
-      //       width: 100,
-      //       height: 100,
-      //       child: FloatingActionButton(
-      //         backgroundColor: Colors.pink,
-      //         heroTag: null,
-      //         onPressed: () {
-      //           setState(() {
-      //             _controller.value.volume == 0
-      //                 ? _controller.setVolume(1)
-      //                 : _controller.setVolume(0);
-      //           });
-      //         },
-      //         child: Icon(
-      //           _controller.value.volume == 0
-      //               ? Icons.volume_off
-      //               : Icons.volume_up,
-      //           size: 40,
-      //           color: Colors.white,
-      //         ),
-      //       ),
-      //     ),
-      //     const SizedBox(
-      //       width: 20,
-      //     ),
-      //     SizedBox(
-      //       width: 100,
-      //       height: 100,
-      //       child: FloatingActionButton(
-      //         backgroundColor: Colors.pink,
-      //         heroTag: null,
-      //         onPressed: () {
-      //           setState(() {
-      //             _controller.value.isPlaying
-      //                 ? _controller.pause()
-      //                 : _controller.play();
-      //           });
-      //         },
-      //         child: Icon(
-      //           _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-      //           size: 40,
-      //           color: Colors.white,
-      //         ),
-      //       ),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
