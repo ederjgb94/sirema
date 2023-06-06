@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:sirema/vistas/discalculia_page.dart';
 import 'package:sirema/vistas/ejercicios_restas.dart';
 import 'package:sirema/vistas/ejercicios_sumas.dart';
@@ -6,6 +7,11 @@ import 'package:sirema/vistas/inicio.dart';
 import 'package:sirema/vistas/misionvision_page.dart';
 import 'package:sirema/vistas/objetivo_enelservicio.dart';
 import 'package:sirema/vistas/quienessomos_page.dart';
+=======
+import 'package:sirema/vistas/ejercicios_restas.dart';
+import 'package:sirema/vistas/ejercicios_sumas.dart';
+import 'package:sirema/vistas/inicio.dart';
+>>>>>>> ba9c09c3b2c621d65f9c40fba0f65ee3e0795a32
 import 'package:sirema/vistas/seleccionar_ejercicio_page.dart';
 
 Map<String, WidgetBuilder> rutas = {
@@ -13,8 +19,11 @@ Map<String, WidgetBuilder> rutas = {
   '/seleccionar_ejercicios': (context) => const SeleccionarEjercicioPage(),
   '/ejercicios_sumas': (context) => const EjerciciosSumasPage(),
   '/ejercicios_restas': (context) => const EjerciciosRestasPage(),
+<<<<<<< HEAD
   '/objetivo_en_el_servicio': (context) => const ObjetivoEnElServicio(),
   '/discalculia': (context) => const DiscalculiaPage(),
   '/misionvision': (context) => const MisionVisionPage(),
   '/quienes_somos': (context) => const QuienesSomosPage(),
+=======
+>>>>>>> ba9c09c3b2c621d65f9c40fba0f65ee3e0795a32
 };
