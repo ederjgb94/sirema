@@ -2,8 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_dialogs/dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:sirema/utilerias/pair.dart';
 import 'package:text_to_speech/text_to_speech.dart';
+import 'package:lottie/lottie.dart';
 
 class EjerciciosSumasPage extends StatefulWidget {
   const EjerciciosSumasPage({super.key});
@@ -281,13 +284,63 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
   }
 
   bool enviado = false;
+  int correctas = 0;
+  int incorrectas = 0;
 
-  Future<void> enviarResultadoFirebase() async {
+  Future<void> enviarResultadoFirebase(context) async {
     if (enviado) {
       return;
     }
+
     await Future.delayed(const Duration(seconds: 1));
     enviado = true;
+  }
+
+  void muestraResultados() {
+    String msg = '';
+    msg = correctas == 10
+        ? '¡Excelente! haz contestado todos los ejercicios correctamente'
+        : correctas >= 8
+            ? '¡Felicidades! lo hiciste muy bien'
+            : '¡Sigue intentando! lo harás mejor la próxima vez';
+
+    String lotti = correctas == 10
+        ? 'ganador.json'
+        : correctas >= 8
+            ? 'animate_fruit.json'
+            : 'banana.json';
+    Dialogs.bottomMaterialDialog(
+        msg: msg,
+        title: 'Tus respuestas correctas $correctas de ${ejercicios.length}',
+        color: Colors.white,
+        context: context,
+        customView: Container(
+          color: const Color(0xffF7F5FB),
+          child: ColorFiltered(
+            colorFilter: const ColorFilter.mode(
+              Color(0xffF7F5FB),
+              BlendMode.modulate,
+            ),
+            child: Lottie.asset(
+              'assets/$lotti',
+              width: 100,
+              height: 100,
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        actions: [
+          IconsButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            text: 'Ver resultados',
+            iconData: Icons.visibility,
+            color: Colors.teal,
+            textStyle: const TextStyle(color: Colors.white),
+            iconColor: Colors.white,
+          ),
+        ]);
   }
 
   @override
@@ -395,7 +448,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                           Navigator.pop(context);
 
                           int total = ejercicios.length;
-                          int correctas = 0;
+                          correctas = 0;
                           for (int i = 0; i < ejercicios.length; i++) {
                             var ejercicio = ejercicios[i];
                             int a = ejercicio.first;
@@ -409,7 +462,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                               respuestasCorrectas[i] = true;
                             }
                           }
-                          int incorrectas = total - correctas;
+                          incorrectas = total - correctas;
                         },
                         child: const Text(
                           'SI',
@@ -420,7 +473,13 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                       ),
                     ],
                   ),
-                );
+                ).whenComplete(() {
+                  if (verificar) {
+                    Future.delayed(const Duration(seconds: 1), () {
+                      muestraResultados();
+                    });
+                  }
+                });
               },
               child: Image.asset(
                 'assets/verificar.png',
@@ -454,7 +513,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                   );
                 }
               },
-              future: enviarResultadoFirebase(),
+              future: enviarResultadoFirebase(context),
             ),
     );
   }
