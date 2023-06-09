@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sirema/utilerias/pair.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 
@@ -54,10 +55,13 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
   List<List<int>> imgG1 = [];
   List<List<int>> imgG2 = [];
 
+  List<bool> respuestasCorrectas = [];
+
   bool verificar = false;
 
   @override
   void initState() {
+    respuestasCorrectas = List.generate(10, (index) => false);
     ejercicios = List.generate(10, (index) {
       int x = (random.nextInt(12)) + 1;
       int y = (random.nextInt(12)) + 1;
@@ -195,15 +199,28 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
               alignment: Alignment.center,
               children: [
                 Image.asset('assets/estrella.png', width: 120, height: 120),
-                SizedBox(
+                Container(
+                  decoration: verificar && respuestasCorrectas[index] == false
+                      ? BoxDecoration(
+                          border: Border.all(
+                            color: Colors.red,
+                            width: 2,
+                          ),
+                        )
+                      : const BoxDecoration(),
                   width: 50,
                   child: TextField(
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    keyboardType: TextInputType.number,
                     controller: respuestas[index],
                     maxLength: 2,
+                    readOnly: verificar,
                     style: const TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 23, 11, 255),
+                      color: Color.fromARGB(255, 51, 85, 255),
                     ),
                     decoration: const InputDecoration(
                       counterText: '',
@@ -211,9 +228,40 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
                     ),
                   ),
                 ),
+                // SizedBox(
+                //   width: 50,
+                //   child: TextField(
+                //     controller: respuestas[index],
+                //     maxLength: 2,
+                //     style: const TextStyle(
+                //       fontSize: 40,
+                //       fontWeight: FontWeight.bold,
+                //       color: Color.fromARGB(255, 23, 11, 255),
+                //     ),
+                //     decoration: const InputDecoration(
+                //       counterText: '',
+                //       border: InputBorder.none,
+                //     ),
+                //   ),
+                // ),
+                // verificar == false
+                //     ? const SizedBox()
+                //     : (respuestas[index].text != (a - b).toString()
+                //         ? Positioned(
+                //             right: -20,
+                //             bottom: 5,
+                //             child: Image.asset('assets/equis.png',
+                //                 width: 60, height: 60),
+                //           )
+                //         : Positioned(
+                //             right: -20,
+                //             bottom: 5,
+                //             child: Image.asset('assets/palomita.png',
+                //                 width: 60, height: 60),
+                //           )),
                 verificar == false
                     ? const SizedBox()
-                    : (respuestas[index].text != (a - b).toString()
+                    : respuestasCorrectas[index] == false
                         ? Positioned(
                             right: -20,
                             bottom: 5,
@@ -225,7 +273,25 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
                             bottom: 5,
                             child: Image.asset('assets/palomita.png',
                                 width: 60, height: 60),
-                          )),
+                          ),
+                verificar && respuestasCorrectas[index] == false
+                    ? Positioned(
+                        bottom: 5,
+                        right: -70,
+                        child: Container(
+                          color: Colors.white,
+                          child: Text(
+                            (ejercicios[index].first - ejercicios[index].second)
+                                .toString(),
+                            style: const TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
               ],
             ),
           ),
@@ -244,6 +310,16 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
         ],
       ),
     );
+  }
+
+  bool enviado = false;
+
+  Future<void> enviarResultadoFirebase() async {
+    if (enviado) {
+      return;
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    enviado = true;
   }
 
   @override
@@ -308,17 +384,99 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
           ),
         ],
       ),
-      floatingActionButton: GestureDetector(
-        onTap: () {
-          setState(() {
-            verificar = true;
-          });
-        },
-        child: Image.asset(
-          'assets/verificar.png',
-          scale: 1.5,
-        ),
-      ),
+      floatingActionButton: verificar == false
+          ? GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text(
+                      '¿ACABASTE?',
+                      style: TextStyle(
+                        fontSize: 40,
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'NO',
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            verificar = true;
+                          });
+                          Navigator.pop(context);
+
+                          int total = ejercicios.length;
+                          int correctas = 0;
+                          for (int i = 0; i < ejercicios.length; i++) {
+                            var ejercicio = ejercicios[i];
+                            int a = ejercicio.first;
+                            int b = ejercicio.second;
+                            int res = respuestas[i].text == ''
+                                ? 0
+                                : int.parse(respuestas[i].text);
+
+                            if (a - b == res) {
+                              correctas++;
+                              respuestasCorrectas[i] = true;
+                            }
+                          }
+                          int incorrectas = total - correctas;
+                        },
+                        child: const Text(
+                          'SI',
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              child: Image.asset(
+                'assets/verificar.png',
+                scale: 1.5,
+              ),
+            )
+          : FutureBuilder(
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/seleccionar_ejercicios');
+                    },
+                    child: Image.asset(
+                      'assets/finalizar.png',
+                      scale: 2.5,
+                    ),
+                  );
+                } else {
+                  return Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/boton_vacio.png',
+                        scale: 3,
+                      ),
+                      const CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    ],
+                  );
+                }
+              },
+              future: enviarResultadoFirebase(),
+            ),
     );
   }
 }

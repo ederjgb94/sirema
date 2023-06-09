@@ -32,6 +32,7 @@ class MisionVisionPage extends StatelessWidget {
                 SizedBox(
                   width: 800,
                   child: SingleChildScrollView(
+                    clipBehavior: Clip.none,
                     padding: const EdgeInsets.symmetric(horizontal: 60),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +64,7 @@ class MisionVisionPage extends StatelessWidget {
                                   Text(
                                     'Misión: ',
                                     style: TextStyle(
-                                      fontSize: 24,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -71,14 +72,14 @@ class MisionVisionPage extends StatelessWidget {
                                   Text(
                                     'Nuestra misión en SIREMA es brindar a los niños de 7 a 8 años y a aquellos que cursan segundo de primaria un software de aprendizaje de sumas y restas que sea de calidad, interactivo y divertido. Nos esforzamos por ofrecer una herramienta educativa que promueva el desarrollo de habilidades matemáticas sólidas, al tiempo que inculca valores positivos y fomenta el crecimiento integral de los niños. Buscamos ser un aliado confiable para padres y educadores, proporcionando una experiencia de aprendizaje enriquecedora que prepare a los niños para enfrentar los desafíos del mundo moderno.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 30),
                                   Text(
                                     'Visión: ',
                                     style: TextStyle(
-                                      fontSize: 24,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -86,7 +87,7 @@ class MisionVisionPage extends StatelessWidget {
                                   Text(
                                     'En SIREMA, tenemos la visión de convertirnos en líderes en el desarrollo de software educativo para el aprendizaje de sumas y restas en niños de 7 a 8 años o segundo de primaria. Nos esforzamos por expandir nuestra plataforma para ofrecer una amplia gama de recursos y actividades interactivas que fortalezcan las habilidades matemáticas de los niños y les brinden una base sólida para su desarrollo académico. Aspiramos a ser una referencia en el campo de la educación digital, proporcionando herramientas eficaces que faciliten el reforzamiento de las matemáticas y contribuyan al éxito educativo de los niños.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ],
@@ -126,6 +127,7 @@ class MisionVisionPage extends StatelessWidget {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 100),
                       ],
                     ),
                   ),

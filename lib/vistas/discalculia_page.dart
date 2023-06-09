@@ -26,13 +26,13 @@ class DiscalculiaPage extends StatelessWidget {
                 ),
               ),
             ),
-            Stack(
+            SingleChildScrollView(
               clipBehavior: Clip.none,
-              children: [
-                SizedBox(
-                  width: 800,
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 60),
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 800,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -42,7 +42,7 @@ class DiscalculiaPage extends StatelessWidget {
                           color: Colors.white,
                           child: Image.asset(
                             'assets/discalculia.png',
-                            scale: 1.8,
+                            scale: 2,
                           ),
                         ),
                         const SizedBox(height: 20),
@@ -63,7 +63,7 @@ class DiscalculiaPage extends StatelessWidget {
                                   Text(
                                     'La discalculia es un trastorno del aprendizaje en el que impera la dificultad para realizar habilidades numéricas, entender cantidades o identificar los números, por ejemplo, cual es mayor o menor, cuál número va primero y cuál le sigue, también se les complica hacer sumas de derecha a izquierda o de arriba hacia abajo, entre otras.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 30),
@@ -78,21 +78,21 @@ class DiscalculiaPage extends StatelessWidget {
                                   Text(
                                     'La primera se presenta como consecuencia de una lesión cerebral y puede aparecer a cualquier edad.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 10),
                                   Text(
                                     'La segunda surge desde la infancia e inicia cuando los niños entran a preescolar y empiezan a trabajar con operaciones numéricas.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 30),
                                   Text(
                                     'Un niño con discalculia puede paparecer:',
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -100,42 +100,42 @@ class DiscalculiaPage extends StatelessWidget {
                                   Text(
                                     '• Tener dificultad para reconocer números.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 10),
                                   Text(
                                     '• Tardarse más en aprender a contar.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 10),
                                   Text(
                                     '• Tener dificultad para conectar los símbolos numéricos (5) con sus palabras correspondientes (cinco).',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 10),
                                   Text(
                                     '• Tener dificultades para reconocer patrones y poner las cosas en orden.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 10),
                                   Text(
                                     '• Perder el hilo mientras cuenta.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 10),
                                   Text(
                                     '• Necesitar apoyos visuales, como los dedos, para ayudarse a contar.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ],
@@ -150,7 +150,7 @@ class DiscalculiaPage extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              left: -95,
+                              left: -100,
                               bottom: -100,
                               child: Image.asset(
                                 'assets/nino.png',
@@ -178,8 +178,9 @@ class DiscalculiaPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 150),
+                ],
+              ),
             ),
           ],
         ),

@@ -12,6 +12,16 @@ class SeleccionarEjercicioPage extends StatelessWidget {
         title: Image.asset('assets/sirema.png', scale: 4),
         toolbarHeight: 100,
         centerTitle: true,
+        leading: SizedBox(
+          height: 48,
+          width: 48,
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushNamed(context, '/');
+            },
+          ),
+        ),
       ),
       body: Stack(
         alignment: Alignment.topCenter,
@@ -31,14 +41,14 @@ class SeleccionarEjercicioPage extends StatelessWidget {
             child: Wrap(
               alignment: WrapAlignment.center,
               spacing: 30,
-              runSpacing: 30,
+              runSpacing: 20,
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   color: Colors.white,
                   child: Image.asset(
                     'assets/ejercicios_refuerzo.png',
-                    scale: 1.8,
+                    scale: 2.5,
                   ),
                 ),
                 const SizedBox(
@@ -50,7 +60,7 @@ class SeleccionarEjercicioPage extends StatelessWidget {
                   },
                   child: Image.asset(
                     'assets/boton_suma.png',
-                    scale: 4,
+                    scale: 6,
                   ),
                 ),
                 GestureDetector(
@@ -67,8 +77,8 @@ class SeleccionarEjercicioPage extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    width: 110,
-                    height: 110,
+                    width: 90,
+                    height: 90,
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: const Color(0xffB22600),
@@ -80,7 +90,7 @@ class SeleccionarEjercicioPage extends StatelessWidget {
                     ),
                     child: const Icon(
                       Icons.video_camera_back,
-                      size: 100,
+                      size: 80,
                     ),
                   ),
                 ),
@@ -93,7 +103,7 @@ class SeleccionarEjercicioPage extends StatelessWidget {
                   },
                   child: Image.asset(
                     'assets/boton_resta.png',
-                    scale: 4,
+                    scale: 6,
                   ),
                 ),
                 GestureDetector(
@@ -110,8 +120,8 @@ class SeleccionarEjercicioPage extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    width: 110,
-                    height: 110,
+                    width: 90,
+                    height: 90,
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: const Color(0xffB22600),
@@ -123,17 +133,17 @@ class SeleccionarEjercicioPage extends StatelessWidget {
                     ),
                     child: const Icon(
                       Icons.video_camera_back,
-                      size: 100,
+                      size: 80,
                     ),
                   ),
                 ),
                 const SizedBox(
                   width: double.infinity,
-                  height: 200,
+                  height: 20,
                 ),
                 Image.asset(
                   'assets/lapices.png',
-                  scale: 2,
+                  scale: 2.2,
                 ),
               ],
             ),

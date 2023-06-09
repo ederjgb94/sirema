@@ -32,6 +32,7 @@ class QuienesSomosPage extends StatelessWidget {
                 SizedBox(
                   width: 800,
                   child: SingleChildScrollView(
+                    clipBehavior: Clip.none,
                     padding: const EdgeInsets.symmetric(horizontal: 60),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,21 +64,21 @@ class QuienesSomosPage extends StatelessWidget {
                                   Text(
                                     'Bienvenidos a SIREMA, una empresa comprometida con el impulso educativo y el desarrollo de habilidades matemáticas en los niños de 7 a 8 años o aquellos que cursan segundo de primaria. Nuestro principal objetivo es ofrecer una solución educativa de calidad que permita a los niños adquirir los fundamentos matemáticos de manera sólida y significativa.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 10),
                                   Text(
                                     'En SIREMA, nos preocupamos no solo por el aprendizaje de las sumas y restas, sino también por inculcar valores positivos en nuestros usuarios, creemos que la educación es la base para construir un futuro mejor. Nuestro compromiso es brindar herramientas tecnológicas de calidad que potencie el aprendizaje de las matemáticas y promuevan el desarrollo integral de los niños, preparándolos para enfrentar los retos del mundo moderno.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 10),
                                   Text(
                                     'Estamos comprometidos con ofrecer productos que se adapten a las necesidades y habilidades individuales de cada niño, permitiéndoles avanzar a su propio ritmo y superar sus propios desafíos. Además, contamos con un sistema de seguimiento y evaluación que permita monitorear el progreso y brindar un apoyo personalizado.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ],
@@ -117,6 +118,7 @@ class QuienesSomosPage extends StatelessWidget {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 100),
                       ],
                     ),
                   ),

@@ -32,6 +32,7 @@ class ObjetivoEnElServicio extends StatelessWidget {
                 SizedBox(
                   width: 800,
                   child: SingleChildScrollView(
+                    clipBehavior: Clip.none,
                     padding: const EdgeInsets.symmetric(horizontal: 60),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,35 +63,35 @@ class ObjetivoEnElServicio extends StatelessWidget {
                                   Text(
                                     '• Motivar a la comunidad educativa en el manejo adecuado y provechoso de la página web como herramienta de apoyo a su conocimiento y vínculo de comunicación.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 30),
                                   Text(
                                     '• Fortalecer el sentido de pertenencia de los estudiantes hacia la institución.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 30),
                                   Text(
                                     '• Fomentar una red de apoyo a la comunidad y de intercambio de información entre la institución y la comunidad',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 30),
                                   Text(
                                     '• Crear un portal web de fácil manejo y personalización, el cual pueda ser utilizado como recurso didáctico para la enseñanza. Realizar el diseño e implementación de las aplicaciones usuario/final y usuario/administrador, bajo los lineamientos en cuanto al diseño.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                   SizedBox(height: 30),
                                   Text(
                                     '• Aprender funciones matemáticas básicas como sumas, restas.',
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ],
@@ -130,6 +131,7 @@ class ObjetivoEnElServicio extends StatelessWidget {
                             ),
                           ],
                         ),
+                        const SizedBox(height: 100),
                       ],
                     ),
                   ),

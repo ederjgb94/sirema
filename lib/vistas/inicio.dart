@@ -34,7 +34,7 @@ class InicioPage extends StatelessWidget {
                   slidingBeginOffset: const Offset(-0.2, -4),
                   child: Image.asset(
                     'assets/sirema.png',
-                    scale: 2,
+                    scale: 3,
                   ),
                 ),
                 const SizedBox(
@@ -61,7 +61,7 @@ class InicioPage extends StatelessWidget {
                             },
                             child: Image.asset(
                               'assets/btnquienessomos.png',
-                              scale: 2.2,
+                              scale: 4,
                             ),
                           ),
                           Positioned(
@@ -69,7 +69,7 @@ class InicioPage extends StatelessWidget {
                             top: -50,
                             child: Image.asset(
                               'assets/avionsito.png',
-                              scale: 1,
+                              scale: 1.5,
                             ),
                           ),
                         ],
@@ -85,7 +85,7 @@ class InicioPage extends StatelessWidget {
                         },
                         child: Image.asset(
                           'assets/btnejercicios.png',
-                          scale: 2.2,
+                          scale: 4,
                         ),
                       ),
                     ),
@@ -99,7 +99,7 @@ class InicioPage extends StatelessWidget {
                         },
                         child: Image.asset(
                           'assets/btnmision.png',
-                          scale: 2.2,
+                          scale: 4,
                         ),
                       ),
                     ),
@@ -115,7 +115,7 @@ class InicioPage extends StatelessWidget {
                         },
                         child: Image.asset(
                           'assets/btndiscalculia.png',
-                          scale: 2.2,
+                          scale: 4,
                         ),
                       ),
                     ),
@@ -132,7 +132,7 @@ class InicioPage extends StatelessWidget {
                             },
                             child: Image.asset(
                               'assets/btnservicio.png',
-                              scale: 2.2,
+                              scale: 4,
                             ),
                           ),
                           Positioned(
@@ -140,7 +140,7 @@ class InicioPage extends StatelessWidget {
                             bottom: 15,
                             child: Image.asset(
                               'assets/lapicito.png',
-                              scale: 1,
+                              scale: 1.5,
                             ),
                           ),
                         ],
@@ -154,7 +154,7 @@ class InicioPage extends StatelessWidget {
                 DelayedDisplay(
                   child: Image.asset(
                     'assets/frase.png',
-                    scale: 1,
+                    scale: 2,
                   ),
                 ),
               ],

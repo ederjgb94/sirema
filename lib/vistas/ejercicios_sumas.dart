@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sirema/utilerias/pair.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 
@@ -206,6 +207,10 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                       : const BoxDecoration(),
                   width: 50,
                   child: TextField(
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    keyboardType: TextInputType.number,
                     controller: respuestas[index],
                     maxLength: 2,
                     readOnly: verificar,
@@ -275,6 +280,16 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
     );
   }
 
+  bool enviado = false;
+
+  Future<void> enviarResultadoFirebase() async {
+    if (enviado) {
+      return;
+    }
+    await Future.delayed(const Duration(seconds: 1));
+    enviado = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -283,6 +298,16 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
         title: Image.asset('assets/sirema.png', scale: 4),
         centerTitle: true,
         toolbarHeight: 100,
+        leading: SizedBox(
+          height: 48,
+          width: 48,
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushNamed(context, '/seleccionar_ejercicios');
+            },
+          ),
+        ),
       ),
       body: Stack(
         children: [
@@ -429,7 +454,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                   );
                 }
               },
-              future: Future.delayed(const Duration(seconds: 2)),
+              future: enviarResultadoFirebase(),
             ),
     );
   }
