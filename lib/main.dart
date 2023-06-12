@@ -1,7 +1,14 @@
+import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sirema/constantes/rutas.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: '6LfjCoUmAAAAAG-q8UVAPrnSnTg7BF4jnNzAHXCK',
+  );
   runApp(const MyApp());
 }
 
