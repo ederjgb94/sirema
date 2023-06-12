@@ -96,7 +96,7 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
       case 1:
         return "Una vez tuve $a estampas$s1 pero en la escuela me pidieron que usara $b estampa$s2, ¿Cuántas estampas me quedaron?";
       case 2:
-        return "Mi maestra me pidio que le llevara $a pegatina$s1 pero en el camino perdi $b estampa$s2, ¿Cuántas estampas le lleve?";
+        return "Mi maestra me pidio que le llevara $a pegatina$s1 pero en el camino perdi $b pegatina$s2, ¿Cuántas pegatians llevé al salón?";
       case 3:
         return "Mi papá me dio $a sticker$s1 pero mi mamá pidio $b sticker$s2, ¿Cuántos stickers podré usar para mi cuaderno?";
       case 4:
