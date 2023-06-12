@@ -82,7 +82,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
   }
 
   String generarOracion(int a, int b) {
-    int x = random.nextInt(3);
+    int x = random.nextInt(7);
     var s1 = a == 1 ? "" : "s";
     var s2 = b == 1 ? "" : "s";
     switch (x) {
@@ -92,6 +92,14 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
         return "Mi papá me dió $a pegatina$s1 y mi mamá me dió $b pegatina$s2, ¿Cuántas pegatinas tengo en total?";
       case 2:
         return "Mi amigo Pepe tiene $a estampa$s1 y mi amigo Juan tiene $b estampa$s2, ¿Si juntamos las estampas cuántas serían en total?";
+      case 3:
+        return "Mi amigo Pepe tiene $a estampa$s1 y mi amigo Juan tiene $b estampa$s2, ¿Si juntamos las estampas cuántas serían en total?";
+      case 4:
+        return "Mi tío me regaló $a estampa$s1 y mi tía me regaló $b estampa$s2, ¿Cuantas estampas tengo en total?";
+      case 5:
+        return "Mi primo Beto llego a mi casa con $a figuras y mi mama me regalo $b figuras, ¿Cuantas figuras tenemos en total?";
+      case 6:
+        return "Mi maestro pidio que trajeramos $a pegatina$s1 y mi maestra pidio que trajeramos $b pegatina$s2, ¿Cuantas pegatinas tengo que traer a la escuela?";
     }
     return "";
   }
