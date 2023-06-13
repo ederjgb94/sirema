@@ -90,12 +90,24 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
   }
 
   String generarOracion(int a, int b) {
-    int x = random.nextInt(1);
+    int x = random.nextInt(7);
     var s1 = a == 1 ? "" : "s";
     var s2 = b == 1 ? "" : "s";
     switch (x) {
       case 0:
         return "Si tengo $a figurita$s1 y mi mamá me quita $b figurita$s2, ¿Cuántas figuritas tengo en total?";
+      case 1:
+        return "Una vez tuve $a estampas$s1 pero en la escuela me pidieron que usara $b estampa$s2, ¿Cuántas estampas me quedaron?";
+      case 2:
+        return "Mi maestra me pidio que le llevara $a pegatina$s1 pero en el camino perdi $b pegatina$s2, ¿Cuántas pegatians llevé al salón?";
+      case 3:
+        return "Mi papá me dio $a sticker$s1 pero mi mamá pidio $b sticker$s2, ¿Cuántos stickers podré usar para mi cuaderno?";
+      case 4:
+        return "Un día mi papá me regalo $a juguete$s1 de plástico pero mi hermano me quito $b juguete$s2, ¿Cuántos juguetes me quedaron?";
+      case 5:
+        return "Un día estaba por la calle caminando y vi que habían $a estampa$s1 en la tienda, le pregunté a mi mama si me compraba estampas y me dijo que solo me comprará $b estampa$s2, ¿Cuántas estampas quedaran en la tienda después de que mi mama me las compró?";
+      case 6:
+        return "Había una vez un niño que tuvo $a figurita$s1 pero su amiga le quitó $b figurita$s2, ¿Cuántas figuritas le quedaron al niño?";
     }
     return "";
   }

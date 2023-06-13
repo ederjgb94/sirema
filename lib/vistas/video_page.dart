@@ -58,11 +58,11 @@ class _VideoPageState extends State<VideoPage> {
               children: [
                 widget.url == 'restas.mp4'
                     ? Image.asset(
-                        'assets/encabezado_resta.png',
+                        'assets/aprender_resta.png',
                         scale: 2,
                       )
                     : Image.asset(
-                        'assets/encabezado_suma.png',
+                        'assets/aprender_sumar.png',
                         scale: 2,
                       ),
                 const SizedBox(
