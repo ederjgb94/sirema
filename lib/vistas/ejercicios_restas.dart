@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
+import 'package:material_dialogs/dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:sirema/utilerias/pair.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 
@@ -313,6 +316,8 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
   }
 
   bool enviado = false;
+  int correctas = 0;
+  int incorrectas = 0;
 
   Future<void> enviarResultadoFirebase() async {
     if (enviado) {
@@ -320,6 +325,53 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
     }
     await Future.delayed(const Duration(seconds: 1));
     enviado = true;
+  }
+
+  void muestraResultados() {
+    String msg = '';
+    msg = correctas == 10
+        ? '¡Excelente! haz contestado todos los ejercicios correctamente'
+        : correctas >= 8
+            ? '¡Felicidades! lo hiciste muy bien'
+            : '¡Sigue intentando! lo harás mejor la próxima vez';
+
+    String lotti = correctas == 10
+        ? 'ganador.json'
+        : correctas >= 8
+            ? 'animate_fruit.json'
+            : 'banana.json';
+    Dialogs.bottomMaterialDialog(
+        msg: msg,
+        title: 'Tus respuestas correctas $correctas de ${ejercicios.length}',
+        color: Colors.white,
+        context: context,
+        customView: Container(
+          color: const Color(0xffF7F5FB),
+          child: ColorFiltered(
+            colorFilter: const ColorFilter.mode(
+              Color(0xffF7F5FB),
+              BlendMode.modulate,
+            ),
+            child: Lottie.asset(
+              'assets/$lotti',
+              width: 100,
+              height: 100,
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        actions: [
+          IconsButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            text: 'Ver resultados',
+            iconData: Icons.visibility,
+            color: Colors.teal,
+            textStyle: const TextStyle(color: Colors.white),
+            iconColor: Colors.white,
+          ),
+        ]);
   }
 
   @override
@@ -330,6 +382,16 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
         title: Image.asset('assets/sirema.png', scale: 4),
         toolbarHeight: 100,
         centerTitle: true,
+        leading: SizedBox(
+          height: 48,
+          width: 48,
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushNamed(context, '/seleccionar_ejercicios');
+            },
+          ),
+        ),
       ),
       body: Stack(
         children: [
@@ -416,13 +478,13 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
                           Navigator.pop(context);
 
                           int total = ejercicios.length;
-                          int correctas = 0;
+                          correctas = 0;
                           for (int i = 0; i < ejercicios.length; i++) {
                             var ejercicio = ejercicios[i];
                             int a = ejercicio.first;
                             int b = ejercicio.second;
                             int res = respuestas[i].text == ''
-                                ? 0
+                                ? -1
                                 : int.parse(respuestas[i].text);
 
                             if (a - b == res) {
@@ -430,7 +492,7 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
                               respuestasCorrectas[i] = true;
                             }
                           }
-                          int incorrectas = total - correctas;
+                          incorrectas = total - correctas;
                         },
                         child: const Text(
                           'SI',
@@ -441,7 +503,13 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
                       ),
                     ],
                   ),
-                );
+                ).whenComplete(() {
+                  if (verificar) {
+                    Future.delayed(const Duration(milliseconds: 1500), () {
+                      muestraResultados();
+                    });
+                  }
+                });
               },
               child: Image.asset(
                 'assets/verificar.png',

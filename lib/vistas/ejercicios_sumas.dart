@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:sirema/controlador/respuestas_controlller.dart';
 import 'package:sirema/utilerias/pair.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 import 'package:lottie/lottie.dart';
@@ -294,6 +295,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
 
     await Future.delayed(const Duration(seconds: 1));
     enviado = true;
+    prueba();
   }
 
   void muestraResultados() {
@@ -394,7 +396,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
-                    'OBSERVA Y CONTESTA CORRECTAMENTE LAS SIGUIENTES SUMAS:',
+                    'asaa12OBSERVA Y CONTESTA CORRECTAMENTE LAS SIGUIENTES SUMAS:',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,
@@ -475,7 +477,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                   ),
                 ).whenComplete(() {
                   if (verificar) {
-                    Future.delayed(const Duration(seconds: 1), () {
+                    Future.delayed(const Duration(milliseconds: 1500), () {
                       muestraResultados();
                     });
                   }
