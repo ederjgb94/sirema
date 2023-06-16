@@ -1,4 +1,5 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sirema/constantes/rutas.dart';
@@ -38,9 +39,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-
       routes: rutas, //se injectan las rutas
-      initialRoute: '/',
+      initialRoute: FirebaseAuth.instance.currentUser != null
+          ? '/'
+          : '/login', //se define la ruta inicial
     );
   }
 }

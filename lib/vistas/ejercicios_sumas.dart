@@ -303,7 +303,12 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
 
     await Future.delayed(const Duration(seconds: 1));
     enviado = true;
-    prueba();
+
+    RespuestasController().generarRegistroRespuestas(
+      correctas,
+      incorrectas,
+      ejercicios.length,
+    );
   }
 
   void muestraResultados() {

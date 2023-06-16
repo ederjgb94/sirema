@@ -1,5 +1,6 @@
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
+import 'package:sirema/controlador/respuestas_controlller.dart';
 
 class InicioPage extends StatelessWidget {
   const InicioPage({super.key});
@@ -161,6 +162,20 @@ class InicioPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (RespuestasController().getUid().isNotEmpty) {
+            RespuestasController().logoutGoogle();
+          } else {
+            RespuestasController().loginWithGoogleFirebase();
+          }
+        },
+        child: Icon(
+          RespuestasController().getUid().isNotEmpty
+              ? Icons.logout
+              : Icons.login,
+        ),
       ),
     );
   }
