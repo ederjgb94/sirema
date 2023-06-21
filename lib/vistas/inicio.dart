@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:sirema/controlador/respuestas_controlller.dart';
@@ -7,6 +9,8 @@ class InicioPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String userAgent = window.navigator.userAgent.toLowerCase();
+    bool isMobile = userAgent.contains('mobile');
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 254, 230, 250),
       appBar: AppBar(
@@ -158,23 +162,31 @@ class InicioPage extends StatelessWidget {
                     scale: 2,
                   ),
                 ),
+                isMobile
+                    ? const SizedBox(
+                        height: 200,
+                      )
+                    : const SizedBox(
+                        height: 0,
+                      ),
               ],
             ),
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (RespuestasController().getUid().isNotEmpty) {
-            RespuestasController().logoutGoogle();
-          } else {
-            RespuestasController().loginWithGoogleFirebase();
-          }
-        },
-        child: Icon(
-          RespuestasController().getUid().isNotEmpty
-              ? Icons.logout
-              : Icons.login,
+      floatingActionButton: SizedBox(
+        width: 200,
+        child: GestureDetector(
+          onTap: () async {
+            await RespuestasController().logoutGoogle();
+            if (context.mounted) {
+              Navigator.pushReplacementNamed(context, '/login');
+            }
+          },
+          child: Image.asset(
+            'assets/cerrar_sesion.png',
+            width: 200,
+          ),
         ),
       ),
     );

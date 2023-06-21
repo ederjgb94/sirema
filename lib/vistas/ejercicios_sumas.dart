@@ -1,13 +1,14 @@
+import 'dart:html';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:sirema/controlador/respuestas_controlller.dart';
 import 'package:sirema/utilerias/pair.dart';
 import 'package:text_to_speech/text_to_speech.dart';
-import 'package:lottie/lottie.dart';
 
 class EjerciciosSumasPage extends StatefulWidget {
   const EjerciciosSumasPage({super.key});
@@ -324,26 +325,31 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
         : correctas >= 8
             ? 'animate_fruit.json'
             : 'banana.json';
+    String userAgent = window.navigator.userAgent.toLowerCase();
+    bool isMobile = userAgent.contains('mobile');
+
     Dialogs.bottomMaterialDialog(
         msg: msg,
         title: 'Tus respuestas correctas $correctas de ${ejercicios.length}',
         color: Colors.white,
         context: context,
-        customView: Container(
-          color: const Color(0xffF7F5FB),
-          child: ColorFiltered(
-            colorFilter: const ColorFilter.mode(
-              Color(0xffF7F5FB),
-              BlendMode.modulate,
-            ),
-            child: Lottie.asset(
-              'assets/$lotti',
-              width: 100,
-              height: 100,
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
+        customView: isMobile
+            ? const SizedBox()
+            : Container(
+                color: const Color(0xffF7F5FB),
+                child: ColorFiltered(
+                  colorFilter: const ColorFilter.mode(
+                    Color(0xffF7F5FB),
+                    BlendMode.modulate,
+                  ),
+                  child: Lottie.asset(
+                    'assets/$lotti',
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
         actions: [
           IconsButton(
             onPressed: () {
@@ -409,7 +415,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
-                    'asaa12OBSERVA Y CONTESTA CORRECTAMENTE LAS SIGUIENTES SUMAS:',
+                    'OBSERVA Y CONTESTA CORRECTAMENTE LAS SIGUIENTES SUMAS:',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,

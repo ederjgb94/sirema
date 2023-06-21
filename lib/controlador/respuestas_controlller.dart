@@ -32,8 +32,8 @@ class RespuestasController {
     // checkUser();
   }
 
-  void logoutGoogle() {
-    FirebaseAuth.instance.signOut();
+  Future<void> logoutGoogle() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   //checar el User logeado
