@@ -120,175 +120,178 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
       constraints: const BoxConstraints(
         maxWidth: 1200,
       ),
-      child: Wrap(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.teal,
-                width: 2,
+      child: SingleChildScrollView(
+        child: Wrap(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.teal,
+                  width: 2,
+                ),
               ),
-            ),
-            width: 300,
-            child: Wrap(
-              children: List.generate(
-                (a + 1),
-                (subindex) {
-                  return subindex == 0
-                      ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            a.toString(),
-                            style: const TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
+              width: 300,
+              child: Wrap(
+                children: List.generate(
+                  (a + 1),
+                  (subindex) {
+                    return subindex == 0
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              a.toString(),
+                              style: const TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        )
-                      : Image.asset(
-                          'assets/${imagenes[imgG1[index][subindex - 1]]}.png',
-                          width: 60,
-                          height: 60,
-                        );
-                },
+                          )
+                        : Image.asset(
+                            'assets/${imagenes[imgG1[index][subindex - 1]]}.png',
+                            width: 60,
+                            height: 60,
+                          );
+                  },
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          Image.asset('assets/sumaicono.png', width: 80, height: 80),
-          const SizedBox(
-            width: 15,
-          ),
-          Container(
-            width: 300,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.teal,
-                width: 2,
-              ),
+            const SizedBox(
+              width: 15,
             ),
-            child: Wrap(
-              children: List.generate(
-                (b + 1),
-                (subindex) {
-                  return subindex == 0
-                      ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            b.toString(),
-                            style: const TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
+            Image.asset('assets/sumaicono.png', width: 80, height: 80),
+            const SizedBox(
+              width: 15,
+            ),
+            Container(
+              width: 300,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.teal,
+                  width: 2,
+                ),
+              ),
+              child: Wrap(
+                children: List.generate(
+                  (b + 1),
+                  (subindex) {
+                    return subindex == 0
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              b.toString(),
+                              style: const TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        )
-                      : Image.asset(
-                          'assets/${imagenes[imgG2[index][subindex - 1]]}.png',
-                          width: 60,
-                          height: 60,
-                        );
-                },
+                          )
+                        : Image.asset(
+                            'assets/${imagenes[imgG2[index][subindex - 1]]}.png',
+                            width: 60,
+                            height: 60,
+                          );
+                  },
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Image.asset('assets/igualicono.png', width: 80, height: 80),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
+            const SizedBox(
+              width: 5,
             ),
-            child: Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.center,
-              children: [
-                Image.asset('assets/nube.png', width: 120, height: 120),
-                Container(
-                  decoration: verificar && respuestasCorrectas[index] == false
-                      ? BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Colors.red,
-                            width: 2,
-                          ),
-                        )
-                      : const BoxDecoration(),
-                  width: 50,
-                  child: TextField(
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                    keyboardType: TextInputType.number,
-                    controller: respuestas[index],
-                    maxLength: 2,
-                    readOnly: verificar,
-                    style: const TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 167, 99),
-                    ),
-                    decoration: const InputDecoration(
-                      counterText: '',
-                      border: InputBorder.none,
+            Image.asset('assets/igualicono.png', width: 80, height: 80),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
+              child: Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.center,
+                children: [
+                  Image.asset('assets/nube.png', width: 120, height: 120),
+                  Container(
+                    decoration: verificar && respuestasCorrectas[index] == false
+                        ? BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.red,
+                              width: 2,
+                            ),
+                          )
+                        : const BoxDecoration(),
+                    width: 50,
+                    child: TextField(
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      keyboardType: TextInputType.number,
+                      controller: respuestas[index],
+                      maxLength: 2,
+                      readOnly: verificar,
+                      style: const TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 255, 167, 99),
+                      ),
+                      decoration: const InputDecoration(
+                        counterText: '',
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
-                ),
-                verificar == false
-                    ? const SizedBox()
-                    : respuestasCorrectas[index] == false
-                        ? Positioned(
-                            right: -20,
-                            bottom: 5,
-                            child: Image.asset('assets/equis.png',
-                                width: 60, height: 60),
-                          )
-                        : Positioned(
-                            right: -20,
-                            bottom: 5,
-                            child: Image.asset('assets/palomita.png',
-                                width: 60, height: 60),
-                          ),
-                verificar && respuestasCorrectas[index] == false
-                    ? Positioned(
-                        bottom: 5,
-                        right: -70,
-                        child: Container(
-                          color: Colors.white,
-                          child: Text(
-                            (ejercicios[index].first + ejercicios[index].second)
-                                .toString(),
-                            style: const TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red,
+                  verificar == false
+                      ? const SizedBox()
+                      : respuestasCorrectas[index] == false
+                          ? Positioned(
+                              right: -20,
+                              bottom: 5,
+                              child: Image.asset('assets/equis.png',
+                                  width: 60, height: 60),
+                            )
+                          : Positioned(
+                              right: -20,
+                              bottom: 5,
+                              child: Image.asset('assets/palomita.png',
+                                  width: 60, height: 60),
+                            ),
+                  verificar && respuestasCorrectas[index] == false
+                      ? Positioned(
+                          bottom: 5,
+                          right: -70,
+                          child: Container(
+                            color: Colors.white,
+                            child: Text(
+                              (ejercicios[index].first +
+                                      ejercicios[index].second)
+                                  .toString(),
+                              style: const TextStyle(
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    : const SizedBox(),
-              ],
+                        )
+                      : const SizedBox(),
+                ],
+              ),
             ),
-          ),
-          GestureDetector(
-            onTap: () async {
-              TextToSpeech tts = TextToSpeech();
-              await tts.setLanguage("es-MX");
-              await tts.setRate(0.9);
-              // String text =
-              //     "Si tengo $a figuritas y mi mama me compra $b figuritas, ¿Cuántas figuritas tengo en total?";
-              tts.speak(oraciones[index]);
-            },
-            child: Image.asset(
-              'assets/escuchar_audio.png',
-              scale: 2,
+            GestureDetector(
+              onTap: () async {
+                TextToSpeech tts = TextToSpeech();
+                await tts.setLanguage("es-MX");
+                await tts.setRate(0.9);
+                // String text =
+                //     "Si tengo $a figuritas y mi mama me compra $b figuritas, ¿Cuántas figuritas tengo en total?";
+                tts.speak(oraciones[index]);
+              },
+              child: Image.asset(
+                'assets/escuchar_audio.png',
+                scale: 2,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -309,6 +312,7 @@ class _EjerciciosSumasPageState extends State<EjerciciosSumasPage> {
       correctas,
       incorrectas,
       ejercicios.length,
+      'ejercicios_sumas',
     );
   }
 

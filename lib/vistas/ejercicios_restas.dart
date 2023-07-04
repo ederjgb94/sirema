@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:sirema/controlador/respuestas_controlller.dart';
 import 'package:sirema/utilerias/pair.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 
@@ -335,8 +336,16 @@ class _EjerciciosRestasPageState extends State<EjerciciosRestasPage> {
     if (enviado) {
       return;
     }
+
     await Future.delayed(const Duration(seconds: 1));
     enviado = true;
+
+    RespuestasController().generarRegistroRespuestas(
+      correctas,
+      incorrectas,
+      ejercicios.length,
+      'ejercicios_restas',
+    );
   }
 
   void muestraResultados() {

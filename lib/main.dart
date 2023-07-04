@@ -1,4 +1,3 @@
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,18 +7,21 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-        apiKey: "AIzaSyCDJnQqd8y5W_YF-p5rIlo4Os_QFA-t7KA",
-        authDomain: "sirema-web.firebaseapp.com",
-        projectId: "sirema-web",
-        storageBucket: "sirema-web.appspot.com",
-        messagingSenderId: "768607032178",
-        appId: "1:768607032178:web:32bc10466284f2c51e43eb",
-        measurementId: "G-HP1GBYMCDN"),
+      apiKey: "AIzaSyCDJnQqd8y5W_YF-p5rIlo4Os_QFA-t7KA",
+      authDomain: "sirema-web.firebaseapp.com",
+      projectId: "sirema-web",
+      storageBucket: "sirema-web.appspot.com",
+      messagingSenderId: "768607032178",
+      appId: "1:768607032178:web:32bc10466284f2c51e43eb",
+      measurementId: "G-HP1GBYMCDN",
+    ),
   );
+  // FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8181);
+  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9199);
 
-  await FirebaseAppCheck.instance.activate(
-    webRecaptchaSiteKey: '6LfjCoUmAAAAAG-q8UVAPrnSnTg7BF4jnNzAHXCK',
-  );
+  // await FirebaseAppCheck.instance.activate(
+  //   webRecaptchaSiteKey: '6LfjCoUmAAAAAG-q8UVAPrnSnTg7BF4jnNzAHXCK',
+  // );
 
   runApp(const MyApp());
 }
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: rutas, //se injectan las rutas
       initialRoute: FirebaseAuth.instance.currentUser != null
-          ? '/'
+          ? '/alumno_page'
           : '/login', //se define la ruta inicial
     );
   }

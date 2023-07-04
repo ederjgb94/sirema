@@ -1,8 +1,5 @@
-import 'dart:html';
-
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:sirema/controlador/respuestas_controlller.dart';
 
 class LoginPage extends StatelessWidget {
@@ -10,8 +7,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String userAgent = window.navigator.userAgent.toLowerCase();
-    bool isMobile = userAgent.contains('mobile');
+    // String userAgent = window.navigator.userAgent.toLowerCase();
+    // bool isMobile = userAgent.contains('mobile');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -98,7 +95,7 @@ class LoginPage extends StatelessWidget {
                             });
                           },
                           child: Image.asset(
-                            'assets/iniciar.png',
+                            'assets/logo_google.png',
                             width: 300,
                             height: 100,
                           )),
@@ -108,17 +105,6 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   width: double.infinity,
                 ),
-                isMobile
-                    ? const SizedBox()
-                    : Positioned(
-                        bottom: 50,
-                        child: Lottie.asset(
-                          'assets/animate_fruit.json',
-                          width: 200,
-                          height: 200,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sirema/vistas/alumno_page.dart';
 import 'package:sirema/vistas/discalculia_page.dart';
 import 'package:sirema/vistas/ejercicios_restas.dart';
 import 'package:sirema/vistas/ejercicios_sumas.dart';
@@ -19,4 +20,5 @@ Map<String, WidgetBuilder> rutas = {
   '/misionvision': (context) => const MisionVisionPage(),
   '/quienes_somos': (context) => const QuienesSomosPage(),
   '/login': (context) => const LoginPage(),
+  '/alumno_page': (context) => const AlumnoPage(),
 };
